@@ -11,6 +11,34 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'reset',
+    loadChildren: () => import('./reset/reset.module').then( m => m.ResetPageModule)
+  },
+  {
+    path: 'lecture',
+    loadChildren: () => import('./lecture/lecture.module').then( m => m.LecturePageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'stude-scan',
+    loadChildren: () => import('./stude-scan/stude-scan.module').then( m => m.StudeScanPageModule)
+  },
 ];
 
 @NgModule({
