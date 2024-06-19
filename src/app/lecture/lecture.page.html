@@ -1,13 +1,75 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>lecture</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="custom-background">
+  <div class="text">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">lecture</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+
+
+
+    <ion-card class="profile-card" routerLink="/profile">
+      <ion-card-content>
+        <ion-icon name="person-circle-outline" class="icon"></ion-icon>
+        <ion-card-title class="card-title">My PROFILE</ion-card-title>
+      </ion-card-content>
+    </ion-card>
+
+
+
+    <ion-card class="student-card" routerLink="/attendies">
+      <ion-card-content>
+        <ion-icon name="receipt-outline" class="icon"></ion-icon>
+        <ion-card-title class="card-title">Students</ion-card-title>
+        <ion-card-subtitle class="number">20</ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
+   
+
+    
+
+  </div>
+ 
+ 
+
+
+  <section id="contact" *ngIf="showAddCard">
+    <div class="sectionheader" >	<h1>Add Modules</h1></div>
+    <article>
+      
+      
+        <form action="" method="post" class="contactform">
+          <p class="input_wrapper"><input type="text" name="contact_nom" [(ngModel)]="moduleName"  id ="contact_nom"><label for="contact_nom">MODULE</label></p>
+          <p class="input_wrapper"><input type="text" name="contact_email" [(ngModel)]="moduleCode"  id ="contact_email"><label for="contact_email">CODE</label></p>
+          <p class="input_wrapper"><input type="text" name="contact_sujet" [(ngModel)]="moduleLevel"  id ="contact_sujet"><label for="contact_sujet">LEVEL</label></p>
+          <p class="submit_wrapper"><input type="submit" (click)="addModule()" value="SUBMIT"></p>			
+        </form>
+    </article>
+  </section>
+
+  <ion-card class="tablecard" >
+    <table>
+      <thead>
+        <tr>
+          <th>Classes</th>
+          <th>
+            VIEW CLASS
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let module of tableData">
+          <td>{{ module.moduleCode }}</td>
+          <td (click)="gotoQRscan(module.moduleCode)">View</td>
+        </tr>
+      </tbody>
+    </table>
+   
+   
+    <div class="ion-text-center">
+      <ion-button fill="clear">Logout</ion-button>
+      <ion-button fill="outline">Delete</ion-button>
+      <ion-button fill="solid" (click)="showAddCard = true">Add</ion-button>
+    </div>
+
+  </ion-card>
+  
+  
 </ion-content>

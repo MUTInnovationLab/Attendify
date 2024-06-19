@@ -1,13 +1,48 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
+  <ion-toolbar class="toolbarcolor">
+    <ion-title>Attendify</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<ion-content [fullscreen]="true" class="ion-content-centered">
+
+<div class="form-container">
+	<p class="title">Register</p>
+	<form class="form">
+    <div class="input-group">
+			<label for="email">Email</label>
+			<input type="text" name="email" id="email" [(ngModel)]="email" >
+		</div>
+    <div class="input-group">
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name" [(ngModel)]="name">
+		</div>
+    <div class="input-group">
+			<label for="surname">Surname</label>
+			<input type="text" name="surname" id="surname" [(ngModel)]="surname">
+		</div>
+		<div class="input-group">
+			<label for="studentnumber">Student Number</label>
+			<input type="text" name="studentnumber" id="studentnumber" [(ngModel)]="studentNumber">
+		</div>
+		<div class="input-group">
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" [(ngModel)]="password">
+			<div class="forgot">
+				<a rel="noopener noreferrer" href="#">Forgot Password ?</a>
+			</div>
+		</div>
+		<button class="sign" (click)="register()">Sign Up</button>
+	</form>
+	<div class="social-message">
+		<div class="line"></div>
+		<p class="message">Already have account</p>
+		<div class="line"></div>
+	</div>
+
+	<p class="signup">Go to login with your account?
+		<a rel="noopener noreferrer" href="#" (click)= goToPage() class="">Log-in</a>
+	</p>
+</div>
+<!-- </ion-card> -->
+</ion-content> 
