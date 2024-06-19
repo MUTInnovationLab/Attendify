@@ -1,48 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="toolbarcolor">
-    <ion-title>Attendify</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true" class="ion-content-centered">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="register-container">
+    <div class="form-container">
+      <h1 class="title">Attendify Register</h1>
+      <form class="form">
+        <ion-item lines="none" class="input-item">
+          <ion-label position="floating" class="ion-text-uppercase">Email</ion-label>
+          <ion-input type="text" name="email" id="email" [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="input-item">
+          <ion-label position="floating" class="ion-text-uppercase">Name</ion-label>
+          <ion-input type="text" name="name" id="name" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="input-item">
+          <ion-label position="floating" class="ion-text-uppercase">Surname</ion-label>
+          <ion-input type="text" name="surname" id="surname" [(ngModel)]="surname"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="input-item">
+          <ion-label position="floating" class="ion-text-uppercase">Student Number</ion-label>
+          <ion-input type="text" name="studentnumber" id="studentnumber" [(ngModel)]="studentNumber"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="input-item">
+          <ion-label position="floating" class="ion-text-uppercase">Password</ion-label>
+          <ion-input type="password" name="password" id="password" [(ngModel)]="password"></ion-input>
+          <ion-button fill="clear" slot="end" class="forgot-btn">
+            <a rel="noopener noreferrer" routerLink="/reset">Forgot Password?</a>
+          </ion-button>
+        </ion-item>
 
-<div class="form-container">
-	<p class="title">Register</p>
-	<form class="form">
-    <div class="input-group">
-			<label for="email">Email</label>
-			<input type="text" name="email" id="email" [(ngModel)]="email" >
-		</div>
-    <div class="input-group">
-			<label for="name">Name</label>
-			<input type="text" name="name" id="name" [(ngModel)]="name">
-		</div>
-    <div class="input-group">
-			<label for="surname">Surname</label>
-			<input type="text" name="surname" id="surname" [(ngModel)]="surname">
-		</div>
-		<div class="input-group">
-			<label for="studentnumber">Student Number</label>
-			<input type="text" name="studentnumber" id="studentnumber" [(ngModel)]="studentNumber">
-		</div>
-		<div class="input-group">
-			<label for="password">Password</label>
-			<input type="password" name="password" id="password" [(ngModel)]="password">
-			<div class="forgot">
-				<a rel="noopener noreferrer" href="#">Forgot Password ?</a>
-			</div>
-		</div>
-		<button class="sign" (click)="register()">Sign Up</button>
-	</form>
-	<div class="social-message">
-		<div class="line"></div>
-		<p class="message">Already have account</p>
-		<div class="line"></div>
-	</div>
+        <ion-button class="sign-btn ion-margin-top" (click)="register()" expand="block" shape="round">
+          <ion-text class="ion-text-uppercase">Sign Up</ion-text>
+        </ion-button>
+      </form>
+    </div>
 
-	<p class="signup">Go to login with your account?
-		<a rel="noopener noreferrer" href="#" (click)= goToPage() class="">Log-in</a>
-	</p>
-</div>
-<!-- </ion-card> -->
-</ion-content> 
+    <div class="divider-container ion-margin-top">
+      <div class="divider-line"></div>
+      <p class="divider-text">Already have an account?</p>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="signup-text ion-text-center ion-margin-top">
+      <span>Go to login with your account</span>
+      <a rel="noopener noreferrer" routerLink="/login" class="signup-link">Log-in</a>
+    </p>
+  </div>
+</ion-content>

@@ -1,13 +1,18 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>stude-scan</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">stude-scan</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-content class="ion-text-center">
+      <ion-icon name="notifications" style="color: #574d07; font-size: 1em;"></ion-icon>
+      "CLASS"
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-text-center"> 
+    <ion-button (click)="scanBarcode()" class="BUTTON">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      Scan Barcode</ion-button>
+  </div>
+
+ 
 </ion-content>

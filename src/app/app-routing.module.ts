@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'stude-scan',
     loadChildren: () => import('./stude-scan/stude-scan.module').then( m => m.StudeScanPageModule)
   },
+  {
+    path: 'qr-scan',
+    loadChildren: () => import('./qr-scan/qr-scan.module').then( m => m.QrScanPageModule)
+  },
 ];
 
 @NgModule({

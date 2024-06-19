@@ -1,5 +1,5 @@
-//CARDS
-ion-card {
+  //CARDS
+  ion-card {
     max-width: 600px;
     margin: auto;
     margin-top: 80px;
@@ -14,9 +14,11 @@ ion-card {
       font-size: 20px;
       text-align: center;
       font-weight: bold;
-      font-style: italic;
+      
     }
-
+    .hude{
+      font-size: 100px;
+    }
     
   }
 
@@ -42,7 +44,7 @@ ion-card {
       font-size: 80px;
       text-align: center;
       font-weight: bold;
-      font-style: italic;
+     
     }
   
     a {
@@ -52,17 +54,31 @@ ion-card {
     a:hover {
       opacity: 0.7;
     }
+    .hude{
+      font-size: 100px;
+    }
   }
   
   
 
   ion-content {
-    --background:#cebfa6;
+    --background:#f4ede1;
   }
 
 
-  .BUTTON{
-    margin-top: 150px;
+
+  .center-image {
+    display: block;
+    margin: 0 auto; /* Center horizontally */
+    text-align: center;
+  }
+  .centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .colser{
     --background:#ff9800;
     font-weight: bold;
     color: #000000;
