@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { NavController } from '@ionic/angular';
+import {   ToastController , AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-stude-scan',
@@ -9,10 +11,14 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./stude-scan.page.scss'],
 })
 export class StudeScanPage implements OnInit {
+  navController: NavController;
   constructor(
     private firestore: AngularFirestore,
-    private auth: AngularFireAuth
-  ) {}
+    private auth: AngularFireAuth,
+    private navCtrl: NavController,
+    private alertController: AlertController,
+    private toastController: ToastController
+  ) {this.navController = navCtrl;}
 
   ngOnInit() {}
 
@@ -58,5 +64,51 @@ export class StudeScanPage implements OnInit {
     } catch (error) {
       console.error('Barcode scanning error:', error);
     }
+  }
+
+  async presentConfirmationAlert() {
+    const alert = await this.alertController.create({
+      header: 'Confirmation',
+      message: 'Are you sure you want to SIGN OUT?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+         cssClass: 'my-custom-alert',
+          handler: () => {
+            console.log('Confirmation canceled');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+           
+            
+            this.auth.signOut().then(() => {
+              this.navController.navigateForward("/login");
+              this.presentToast()
+        
+        
+            }).catch((error) => {
+            
+            });
+  
+  
+  
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'SIGNED OUT!',
+      duration: 1500,
+      position: 'top',
+    
+    });
+  
+    await toast.present();
   }
 }

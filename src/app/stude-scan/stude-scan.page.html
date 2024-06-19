@@ -1,6 +1,21 @@
 
 
 <ion-content [fullscreen]="true">
+  <ion-fab vertical="bottom" horizontal="start" edge>
+    <ion-fab-button class="color-primary">
+      <ion-icon name="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button class="color-secondary">
+        <ion-icon name="person-circle-outline" routerLink="/profile"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button class="color-danger" (click)="presentConfirmationAlert()">
+        <ion-icon name="power-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  
+
   <ion-card>
     <ion-card-content class="ion-text-center">
       <ion-icon name="notifications" style="color: #574d07; font-size: 1em;"></ion-icon>
