@@ -1,13 +1,40 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+ 
+
+  <div class="frame">
+    <div class="center">
+      <div class="profile">
+        <div class="image">
+          <div class="circle-1"></div>
+          <div class="circle-2"></div>
+          <ion-icon name="person-circle-outline" class="equal-size"></ion-icon>
+        </div>
+        <div class="name">{{ currentUser.fullName }}</div>
+        <div class="job">{{ currentUser.position }}</div>
+        <div class="actions">
+          <button class="btn" routerLink="/lecture">ADD CLASSES</button>
+          <button class="btn" routerLink="/attendies">Track Attendance</button>
+        </div>
+      </div>
+      
+      <div class="stats">
+        <div class="box">
+          <span class="value">123</span>
+          <span class="parameter">Students</span>
+        </div>
+        <div class="box">
+          <span class="value">{{ moduleCount }}</span>
+          <span class="parameter">Modules</span>
+        </div>
+        <div class="box">
+          <span class="value">{{ totalAttendance.toFixed(2) }}%</span>
+          <span class="parameter">Attendance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </ion-content>
