@@ -73,6 +73,7 @@ ion-content {
 
 
 
+  
 
 
 
@@ -131,11 +132,11 @@ th {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #D3A29D; /* Odd row background color */
+    background-color: #854836; /* Odd row background color */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #D3A29D; /* Even row background color */
+    background-color: #854836; /* Even row background color */
 }
 
 th:nth-child(2), td:nth-child(2) {
@@ -166,7 +167,7 @@ input[type="checkbox"] {
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  background-color: #D3A29D;
+  background-color: #854836;
   color: #262626;
   padding: 20px;
   box-sizing: border-box;
@@ -174,7 +175,7 @@ input[type="checkbox"] {
 }
 
 .sectionheader {
-  background-color: #A36361;
+  background-color: #ff9800;
   color: #fff;
   padding: 10px;
   border-radius: 10px 10px 0 0;
@@ -231,7 +232,7 @@ label {
 }
 
 input[type="submit"] {
-  background-color: #A36361;
+  background-color: #ff9800;
   color: #fff;
   padding: 10px 20px;
   font-size: 16px;
@@ -259,3 +260,10 @@ input[type="submit"]:hover {
 #contact, .sectionheader, p, .input_wrapper, .submit_wrapper, input[type="submit"] {
   animation: fadeIn 1s ease-out;
 }
+
+
+table tbody tr.selected {
+    background-color: #ee1313; /* Change this to the desired background color for the selected row */
+    color: #333; /* Change this to the desired text color for the selected row */
+  }
+  

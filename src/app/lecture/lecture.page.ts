@@ -12,7 +12,7 @@ import firebase from 'firebase/compat/app'; // Import firebase app
 })
 export class LecturePage implements OnInit {
   showAddCard: boolean = false;
-  
+
   contact_nom: string = '';
   contact_email: string = '';
   contact_sujet: string = '';
@@ -23,33 +23,83 @@ export class LecturePage implements OnInit {
   moduleLevel: any;
   userData: any;
   tableData: any[] = [];
+  selectedModuleId: string | null = null; // Store selected module ID
+  navController: NavController;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private navCtrl: NavController,
     private loadingController: LoadingController,
     private auth: AngularFireAuth,
     private db: AngularFirestore,
     private alertController: AlertController,
-    private toastController: ToastController) { }
+    private toastController: ToastController
+  ) {
+    this.navController = navCtrl;
+  }
 
   ngOnInit() {
-    this.getData();
+    this.auth.onAuthStateChanged((user) => {
+      if (user && user.email) {
+        this.getData(user.email);
+      } else {
+        console.log('User not logged in or email is null.');
+      }
+    });
+  }
+
+  async presentConfirmationAlert() {
+    const alert = await this.alertController.create({
+      header: 'Confirmation',
+      message: 'Are you sure you want to SIGN OUT?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'my-custom-alert',
+          handler: () => {
+            console.log('Confirmation canceled');
+          },
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.auth
+              .signOut()
+              .then(() => {
+                this.navController.navigateForward('/login');
+                this.presentToast();
+              })
+              .catch((error) => {
+                console.error('Sign out error:', error);
+              });
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'SIGNED OUT!',
+      duration: 1500,
+      position: 'top',
+    });
+    await toast.present();
   }
 
   async addModule() {
     const loader = await this.loadingController.create({
-      message: 'submitting...',
+      message: 'Submitting...',
       cssClass: 'custom-loader-class',
     });
     await loader.present();
 
     try {
-      // Get the currently logged-in user
       const user = firebase.auth().currentUser;
 
-      if (user) {
-        // If user is logged in, add the module to a new collection named 'modules'
-        // and include the user's email in the module document
+      if (user && user.email) {
         await this.db.collection('modules').add({
           moduleName: this.moduleName,
           moduleCode: this.moduleCode,
@@ -57,17 +107,16 @@ export class LecturePage implements OnInit {
           userEmail: user.email,
         });
 
-        // Clear the input fields
         this.moduleName = '';
         this.moduleCode = '';
         this.moduleLevel = '';
 
         loader.dismiss();
         alert('Module successfully saved');
+        this.getData(user.email); // Refresh the module list
       } else {
-        // Handle case where user is not logged in
         loader.dismiss();
-        alert('User not logged in.');
+        alert('User not logged in or email is null.');
       }
     } catch (error) {
       loader.dismiss();
@@ -76,38 +125,78 @@ export class LecturePage implements OnInit {
     }
   }
 
+  async deleteModule() {
+    if (!this.selectedModuleId) {
+      alert('No module selected for deletion.');
+      return;
+    }
+
+    const loader = await this.loadingController.create({
+      message: 'Deleting...',
+      cssClass: 'custom-loader-class',
+    });
+    await loader.present();
+
+    try {
+      await this.db.collection('modules').doc(this.selectedModuleId).delete();
+      alert('Module successfully deleted');
+      this.selectedModuleId = null; // Clear the selected module
+      const user = firebase.auth().currentUser;
+      if (user && user.email) {
+        this.getData(user.email); // Refresh the module list
+      }
+      loader.dismiss();
+    } catch (error) {
+      loader.dismiss();
+      console.error('Error deleting module:', error);
+      alert('An error occurred while deleting the module.');
+    }
+  }
+
+  selectModule(moduleId: string) {
+    this.selectedModuleId = moduleId;
+    // Update the table selection
+    this.updateTableSelection();
+  }
+
+  updateTableSelection() {
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach((row) => {
+      const htmlRow = row as HTMLElement;
+      if (htmlRow.dataset['id'] === this.selectedModuleId) {
+        htmlRow.classList.add('selected');
+      } else {
+        htmlRow.classList.remove('selected');
+      }
+    });
+  }
+
   gotoQRscan(moduleCode: string) {
     this.router.navigate(['qr-scan'], { queryParams: { moduleCode } });
   }
 
-  gotoProfile(moduleCode: string) {
+  gotoProfile() {
     this.router.navigate(['profile']);
   }
 
-  gotoAttendies(moduleCode: string) {
+  gotoAttendies() {
     this.router.navigate(['attendies']);
   }
 
-  getData() {
-    // Fetch modules associated with the logged-in user's email
-    const user = firebase.auth().currentUser;
-
-    if (user) {
-      this.db
-        .collection('modules', ref => ref.where('userEmail', '==', user.email))
-        .snapshotChanges()
-        .subscribe((data) => {
-          this.userData = data.map((d) => {
-            const id = d.payload.doc.id;
-            const docData = d.payload.doc.data() as any; // Cast docData as any type
-            return { id, ...docData };
-          });
-          console.log(this.userData);
-          this.tableData = this.userData;
+  getData(userEmail: string) {
+    this.db
+      .collection('modules', (ref) => ref.where('userEmail', '==', userEmail))
+      .snapshotChanges()
+      .subscribe((data) => {
+        this.userData = data.map((d) => {
+          const id = d.payload.doc.id;
+          const docData = d.payload.doc.data() as any;
+          return { id, ...docData };
         });
-    } else {
-      console.log('User not logged in.');
-    }
+        console.log(this.userData);
+        this.tableData = this.userData;
+        // Update the table selection after data is loaded
+        this.updateTableSelection();
+      });
   }
-
 }
