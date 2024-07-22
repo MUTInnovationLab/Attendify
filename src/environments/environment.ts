@@ -5,14 +5,16 @@
 export const environment = {
   production: false,  // Add this line
   firebaseConfig :{
-    apiKey: "AIzaSyDoOROSmuw5kwHXl5YrRRvPouBCXq6A9OA",
-    authDomain: "attendify-a7a94.firebaseapp.com",
-    projectId: "attendify-a7a94",
-    storageBucket: "attendify-a7a94.appspot.com",
-    messagingSenderId: "931159602124",
-    appId: "1:931159602124:web:75758ab6e5236a12cc2369"
+    apiKey: "AIzaSyDEmIlGswoVnDZTuVDww7Ds1vMsIu2JSnw",
+    authDomain: "attendify-16eb7.firebaseapp.com",
+    projectId: "attendify-16eb7",
+    storageBucket: "attendify-16eb7.appspot.com",
+    messagingSenderId: "708912424226",
+    appId: "1:708912424226:web:1af06fa9b67a88d9db717b"
   }
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

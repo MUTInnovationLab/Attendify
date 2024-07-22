@@ -46,7 +46,31 @@ const routes: Routes = [
   {
     path: 'attendies',
     loadChildren: () => import('./attendies/attendies.module').then( m => m.AttendiesPageModule)
+  },  {
+    path: 'super-admin',
+    loadChildren: () => import('./super-admin/super-admin.module').then( m => m.SuperAdminPageModule)
   },
+  {
+    path: 'dept-add',
+    loadChildren: () => import('./dept-add/dept-add.module').then( m => m.DeptAddPageModule)
+  },
+  {
+    path: 'super-analytics',
+    loadChildren: () => import('./super-analytics/super-analytics.module').then( m => m.SuperAnalyticsPageModule)
+  },
+  {
+    path: 'dept-an',
+    loadChildren: () => import('./dept-an/dept-an.module').then( m => m.DeptAnPageModule)
+  },
+  {
+    path: 'dept-profile',
+    loadChildren: () => import('./dept-profile/dept-profile.module').then( m => m.DeptProfilePageModule)
+  },
+  {
+    path: 'student-profile',
+    loadChildren: () => import('./student-profile/student-profile.module').then( m => m.StudentProfilePageModule)
+  },
+
 ];
 
 @NgModule({
