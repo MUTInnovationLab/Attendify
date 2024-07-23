@@ -35,6 +35,7 @@ export class LecturePage implements OnInit {
   selectedModule: any;
   searchTerm: string = '';
   searchTerms = new Subject<string>();
+  existingStudents: Set<string> = new Set();
 
   constructor(
     private router: Router,
@@ -62,23 +63,43 @@ export class LecturePage implements OnInit {
 
     this.showAddStudentsModal = true;
     this.selectedModule = this.tableData.find(module => module.id === this.selectedModuleId);
+    await this.fetchExistingStudents();
     await this.fetchRegisteredStudents();
   }
 
   closeAddStudentsModal() {
     this.showAddStudentsModal = false;
+    this.searchTerm = '';
+    this.filteredStudents = [];
     this.registeredStudents = [];
+    this.existingStudents.clear();
+  }
+
+  async fetchExistingStudents() {
+    try {
+      const snapshot = await firebase.firestore()
+        .collection('allModules')
+        .doc(this.selectedModule.moduleCode)
+        .collection(this.selectedModule.moduleName)
+        .get();
+      
+      this.existingStudents = new Set(snapshot.docs.map(doc => doc.id));
+    } catch (error) {
+      console.error('Error fetching existing students:', error);
+    }
   }
 
   async fetchRegisteredStudents() {
     try {
       const snapshot = await this.db.collection('registeredStudents').get().toPromise();
       if (snapshot) {
-        this.registeredStudents = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...(doc.data() as { email: string; name: string; surname: string; studentNumber: string }),
-          selected: false
-        }));
+        this.registeredStudents = snapshot.docs
+          .map(doc => ({
+            id: doc.id,
+            ...(doc.data() as { email: string; name: string; surname: string; studentNumber: string }),
+            selected: false
+          }))
+          .filter(student => !this.existingStudents.has(student.id)); // Filter out existing students
         this.filteredStudents = [...this.registeredStudents];
       } else {
         this.registeredStudents = [];
@@ -109,7 +130,7 @@ export class LecturePage implements OnInit {
   }
 
   async confirmAddStudents() {
-    const selectedStudents = this.registeredStudents.filter(student => student.selected);
+    const selectedStudents = this.filteredStudents.filter(student => student.selected);
     
     if (selectedStudents.length === 0) {
       alert('Please select at least one student.');
@@ -140,7 +161,6 @@ export class LecturePage implements OnInit {
       alert('An error occurred while adding students to the module.');
     }
   }
-
   ngOnInit() {
     this.auth.onAuthStateChanged((user) => {
       if (user && user.email) {
