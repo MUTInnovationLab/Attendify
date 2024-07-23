@@ -4,6 +4,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app'; // Import firebase app
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-lecture',
@@ -26,6 +29,13 @@ export class LecturePage implements OnInit {
   selectedModuleId: string | null = null; // Store selected module ID
   navController: NavController;
 
+  showAddStudentsModal: boolean = false;
+  registeredStudents: any[] = [];
+  filteredStudents: any[] = [];
+  selectedModule: any;
+  searchTerm: string = '';
+  searchTerms = new Subject<string>();
+
   constructor(
     private router: Router,
     private navCtrl: NavController,
@@ -36,6 +46,99 @@ export class LecturePage implements OnInit {
     private toastController: ToastController
   ) {
     this.navController = navCtrl;
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.searchStudents(term);
+    });
+  }
+
+  async openAddStudentsModal() {
+    if (!this.selectedModuleId) {
+      alert('Please select a module first.');
+      return;
+    }
+
+    this.showAddStudentsModal = true;
+    this.selectedModule = this.tableData.find(module => module.id === this.selectedModuleId);
+    await this.fetchRegisteredStudents();
+  }
+
+  closeAddStudentsModal() {
+    this.showAddStudentsModal = false;
+    this.registeredStudents = [];
+  }
+
+  async fetchRegisteredStudents() {
+    try {
+      const snapshot = await this.db.collection('registeredStudents').get().toPromise();
+      if (snapshot) {
+        this.registeredStudents = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...(doc.data() as { email: string; name: string; surname: string; studentNumber: string }),
+          selected: false
+        }));
+        this.filteredStudents = [...this.registeredStudents];
+      } else {
+        this.registeredStudents = [];
+        this.filteredStudents = [];
+      }
+    } catch (error) {
+      console.error('Error fetching registered students:', error);
+      alert('An error occurred while fetching registered students.');
+    }
+  }
+
+  searchStudents(term: string) {
+    this.searchTerm = term;
+    if (!term) {
+      this.filteredStudents = [...this.registeredStudents];
+    } else {
+      const lowerCaseSearch = term.toLowerCase();
+      this.filteredStudents = this.registeredStudents.filter(student => 
+        student.studentNumber.toLowerCase().includes(lowerCaseSearch) ||
+        student.name.toLowerCase().includes(lowerCaseSearch) ||
+        student.surname.toLowerCase().includes(lowerCaseSearch)
+      );
+    }
+  }
+
+  onSearchInput(event: any) {
+    this.searchTerms.next(event.target.value);
+  }
+
+  async confirmAddStudents() {
+    const selectedStudents = this.registeredStudents.filter(student => student.selected);
+    
+    if (selectedStudents.length === 0) {
+      alert('Please select at least one student.');
+      return;
+    }
+
+    try {
+      const batch = firebase.firestore().batch();
+      const moduleRef = firebase.firestore().collection('allModules').doc(this.selectedModule.moduleCode);
+      const studentsRef = moduleRef.collection(this.selectedModule.moduleName);
+
+      for (const student of selectedStudents) {
+        const studentDoc = studentsRef.doc(student.id);
+        batch.set(studentDoc, {
+          email: student.email,
+          name: student.name,
+          surname: student.surname,
+          studentNumber: student.studentNumber,
+          moduleCode: this.selectedModule.moduleCode
+        });
+      }
+
+      await batch.commit();
+      alert('Students successfully added to the module.');
+      this.closeAddStudentsModal();
+    } catch (error) {
+      console.error('Error adding students to module:', error);
+      alert('An error occurred while adding students to the module.');
+    }
   }
 
   ngOnInit() {

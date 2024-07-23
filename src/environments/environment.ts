@@ -5,12 +5,12 @@
 export const environment = {
   production: false,  // Add this line
   firebaseConfig :{
-    apiKey: "AIzaSyDEmIlGswoVnDZTuVDww7Ds1vMsIu2JSnw",
-    authDomain: "attendify-16eb7.firebaseapp.com",
-    projectId: "attendify-16eb7",
-    storageBucket: "attendify-16eb7.appspot.com",
-    messagingSenderId: "708912424226",
-    appId: "1:708912424226:web:1af06fa9b67a88d9db717b"
+    apiKey: "AIzaSyD7u_jf9-wQ_Mth7uy6cRzG97urfJvtRpU",
+  authDomain: "attendify-6202e.firebaseapp.com",
+  projectId: "attendify-6202e",
+  storageBucket: "attendify-6202e.appspot.com",
+  messagingSenderId: "549998560691",
+  appId: "1:549998560691:web:1ade003dd84f944a57b7c6"
   }
 };
 

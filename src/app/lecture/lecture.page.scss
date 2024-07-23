@@ -271,3 +271,46 @@ table tbody tr.selected {
     color: #333; /* Change this to the desired text color for the selected row */
   }
   
+  .student-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    --background: #f4f5f8;
+  
+    ion-label {
+      margin: 10px 0;
+    }
+  
+    h2 {
+      font-weight: bold;
+      color: #333;
+    }
+  
+    p {
+      margin: 5px 0;
+      color: #666;
+    }
+  
+    ion-icon {
+      margin-right: 5px;
+      color: #3880ff;
+    }
+  }
+  
+  .avatar-icon {
+    font-size: 2em;
+    color: #3880ff;
+  }
+  
+  ion-searchbar {
+    --box-shadow: none;
+    --background: #f4f5f8;
+    --border-radius: 10px;
+    padding: 0;
+    margin-bottom: 15px;
+  }
+  
+  ion-button {
+    --border-radius: 10px;
+  }
