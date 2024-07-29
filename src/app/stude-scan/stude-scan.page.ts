@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { NavController } from '@ionic/angular';
+import { NavController,  ModalController } from '@ionic/angular';
 import { ToastController, AlertController } from '@ionic/angular';
+import { ViewModalComponent } from '../view-modal/view-modal.component';
 
 interface UserData {
   name: string;
@@ -17,17 +18,28 @@ interface UserData {
   templateUrl: './stude-scan.page.html',
   styleUrls: ['./stude-scan.page.scss'],
 })
+
+
+
 export class StudeScanPage implements OnInit {
   constructor(
     private firestore: AngularFirestore,
     private auth: AngularFireAuth,
     private navCtrl: NavController,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {}
-
+  async presentViewModal() {
+    const modal = await this.modalController.create({
+      component: ViewModalComponent
+    });
+    return await modal.present();
+  }
+  
+  
   async scanBarcode() {
     try {
       // Ensure the scanner uses the rear camera
