@@ -1,70 +1,13 @@
-<ion-content [fullscreen]="true" class="custom-background">
-  <div class="text">
-    <ion-card class="profile-card" routerLink="/profile">
-      <ion-card-content>
-        <ion-icon name="person-circle-outline" class="icon"></ion-icon>
-        <ion-card-title class="card-title">My PROFILE</ion-card-title>
-      </ion-card-content>
-    </ion-card>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>superAdmin</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-card class="lecturer-card" routerLink="/lecturers">
-      <ion-card-content>
-        <ion-icon name="people-outline" class="icon"></ion-icon>
-        <ion-card-title class="card-title">Lecturers</ion-card-title>
-        <ion-card-subtitle class="number">{{ lecturers.length }}</ion-card-subtitle>
-      </ion-card-content>
-    </ion-card>
-  </div>
-
-  <section id="contact" *ngIf="showAddCard || showEditCard">
-    <div class="sectionheader"><h1>{{ showEditCard ? 'Edit Lecturer' : 'Add Lecturer' }}</h1></div>
-    <article>
-      <form (submit)="showEditCard ? updateLecturer() : addLecturer()" class="contactform">
-        <p class="input_wrapper"><input type="text" name="lecturer_fullName" [(ngModel)]="lecturerFullName" id="lecturer_fullName" required><label for="lecturer_fullName">Full Name</label></p>
-        <p class="input_wrapper"><input type="email" name="lecturer_email" [(ngModel)]="lecturerEmail" id="lecturer_email" required><label for="lecturer_email">Email</label></p>
-        <p class="input_wrapper"><input type="text" name="lecturer_position" [(ngModel)]="lecturerPosition" id="lecturer_position" required><label for="lecturer_position">Position</label></p>
-        <p class="input_wrapper"><input type="text" name="lecturer_staffNumber" [(ngModel)]="lecturerStaffNumber" id="lecturer_staffNumber" required><label for="lecturer_staffNumber">Staff Number</label></p>
-        <p class="input_wrapper">
-          <label for="lecturer_department">Department</label>
-          <select name="lecturer_department" [(ngModel)]="lecturerDepartment" id="lecturer_department" required>
-            <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
-          </select>
-        </p>
-        <p class="submit_wrapper"><input type="submit" value="SUBMIT"></p>
-      </form>
-    </article>
-  </section>
-
-  <ion-card class="tablecard">
-    <table>
-      <thead>
-        <tr>
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Position</th>
-          <th>Staff Number</th>
-          <th>Department</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let lecturer of lecturers">
-          <td>{{ lecturer.fullName }}</td>
-          <td>{{ lecturer.email }}</td>
-          <td>{{ lecturer.position }}</td>
-          <td>{{ lecturer.staffNumber }}</td>
-          <td>{{ lecturer.department }}</td>
-          <td>
-            <ion-button fill="clear" color="primary" (click)="editLecturer(lecturer)">Edit</ion-button>
-            <ion-button fill="clear" color="danger" (click)="deleteLecturer(lecturer.id)">Delete</ion-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="ion-text-center">
-      <ion-button fill="clear" color="warning" (click)="presentConfirmationAlert()">Logout</ion-button>
-      <ion-button fill="solid" class="addbutton" (click)="showAddCard = true; showEditCard = false;">Add Lecturer</ion-button>
-    </div>
-  </ion-card>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">superAdmin</ion-title>
+    </ion-toolbar>
+  </ion-header>
 </ion-content>
