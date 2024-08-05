@@ -24,6 +24,19 @@ $brown: #786450;
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.btn {
+	--background: #ff9800; /* Customize background color */
+	
+	--border-radius: 8px; /* Customize border radius */
+	--padding: 10px 20px; /* Customize padding */
+	display: flex;
+	align-items: center;
+  }
+  
+  .btn ion-icon {
+	margin-right: 8px; /* Space between icon and text */
+  }
+  
 .center {
   position: absolute;
   top: 50px;

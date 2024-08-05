@@ -14,8 +14,14 @@
         <div class="name">{{ currentUser.fullName }}</div>
         <div class="job">{{ currentUser.position }}</div>
         <div class="actions">
-          <button class="btn" routerLink="/lecture">ADD CLASSES</button>
-          <button class="btn" routerLink="/attendies">Track Attendance</button>
+          <button class="btn" routerLink="/lecture">
+            <ion-icon name="add" slot=" start"></ion-icon>Add Classes
+          </button>
+          <ion-button class="btn" routerLink="/attendies">
+            <ion-icon name="footsteps" slot="start"></ion-icon>
+            Track Attendance
+          </ion-button>
+          
         </div>
       </div>
       

@@ -1,37 +1,47 @@
-<ion-content [fullscreen]="true">
-  <ion-fab vertical="bottom" horizontal="end" edge>
-    <ion-fab-button class="color-primary">
-      <ion-icon name="chevron-up-circle-outline"></ion-icon>
-    </ion-fab-button>
+<!-- stude-scan.page.html -->
 
-    <ion-fab-list side="top">
-      <ion-fab-button class="color-secondary">
-        <ion-icon name="person-circle-outline" routerLink="/profile"></ion-icon>
-      </ion-fab-button>
-      
-      <ion-fab-button class="color-danger" (click)="presentConfirmationAlert()">
-        <ion-icon name="power-outline"></ion-icon>
-      </ion-fab-button>
-      
-      <ion-fab-button class="color-secondary" (click)="presentViewModal()">
-        <ion-icon name="eye-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Student Scanner</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-card>
-    <ion-card-content class="ion-text-center">
-      <ion-icon name="notifications" style="color: #574d07; font-size: 1em;"></ion-icon>
-      "CLASS"
-    </ion-card-content>
-  </ion-card>
+<ion-content padding>
+  <ion-button expand="full" (click)="scanBarcode()">Scan QR Code</ion-button> -->
 
-  <div class="ion-text-center">
-    <ion-button (click)="scanBarcode()" class="BUTTON">
-      <ion-icon name="qr-code-outline"></ion-icon>
-      Scan Barcode
-    </ion-button>
+  <!-- Feedback Message Area -->
+  <!-- <ion-item>
+    <ion-label color="primary">
+      <strong>Scan Status:</strong>
+    </ion-label> -->
+    <!-- <ion-text>
+      <p>{{ feedbackMessage }}</p>
+    </ion-text> -->
+  <!-- </ion-item> -->
+
+  <!-- Button to present the view modal -->
+  <!-- <ion-button expand="full" (click)="presentViewModal()">Open View Modal</ion-button> -->
+<!-- </ion-content> -->
+
+
+
+
+<ion-content>
+  <div class="scanner-container">
+    <div class="scanner-frame">
+      <video #scannerPreview></video>
+      <div class="scan-line"></div>
+    </div>
+    <div class="button-container">
+    <ion-button expand="block" (click)="startScan()">Start Scan</ion-button>
+    <ion-button expand="block" (click)="stopScan()">Stop Scan</ion-button>
+    
   </div>
+  <ion-text *ngIf="scanResult">
+      <h2>Scan Result:</h2>
+      <p>{{ scanResult }}</p>
+  </ion-text>
+ 
+    
+</div>
 </ion-content>
-
-

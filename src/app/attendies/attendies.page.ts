@@ -7,7 +7,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./attendies.page.scss'],
 })
 export class AttendiesPage implements OnInit {
-
   attendanceDetails: any[] = [];
 
   constructor(private firestore: AngularFirestore) {}
@@ -17,9 +16,8 @@ export class AttendiesPage implements OnInit {
   }
 
   fetchAttendanceDetails() {
-    this.firestore.collection('registerAttendies').valueChanges().subscribe((data: any[]) => {
+    this.firestore.collection('AttendedStudents').valueChanges().subscribe((data: any[]) => {
       this.attendanceDetails = data;
     });
   }
-
 }
