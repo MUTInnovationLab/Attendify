@@ -14,6 +14,30 @@
     text-align: center;
   }
   
+
+  .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .attendance-table th, .attendance-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .attendance-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f2f2f2;
+  }
+  
+
+
+
+
+
+
   .attendance-table th {
     background-color: #854836; /* Green color for table headers */
     color: white; /* White text color for table headers */

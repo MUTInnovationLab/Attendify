@@ -42,6 +42,26 @@
       <p>{{ scanResult }}</p>
   </ion-text>
  
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button class="color-primary">
+      <ion-icon name="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="top">
+      <ion-fab-button class="color-secondary">
+        <ion-icon name="person-circle-outline" routerLink="/profile"></ion-icon>
+      </ion-fab-button>
+      
+      <!-- <ion-fab-button class="color-danger" (click)="presentConfirmationAlert()">
+        <ion-icon name="power-outline"></ion-icon>
+      </ion-fab-button> -->
+      
+      <ion-fab-button class="color-secondary" (click)="presentViewModal()">
+        <ion-icon name="eye-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
     
 </div>
 </ion-content>

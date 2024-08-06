@@ -240,3 +240,58 @@ ion-item{
     max-height: 350px; 
   }
 }
+
+/* Styling the main FAB button */
+ion-fab-button {
+  width: 56px; /* Adjust size as needed */
+  height: 56px; /* Adjust size as needed */
+  border-radius: 50%; /* Rounded shape */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Box shadow for depth */
+}
+
+/* Styling the icon inside the main FAB button */
+ion-fab-button ion-icon {
+  font-size: 32px; /* Adjust icon size */
+}
+
+/* Styling the FAB list */
+ion-fab-list {
+  --background: transparent; /* Transparent background */
+}
+
+/* Styling each FAB button inside the FAB list */
+ion-fab-list ion-fab-button {
+  width: 44px; /* Adjust size as needed */
+  height: 44px; /* Adjust size as needed */
+  margin-top: 8px; /* Adjust spacing */
+  border-radius: 50%; /* Rounded shape */
+  display:absolute;
+}
+
+/* Styling the icon inside each FAB button */
+ion-fab-list ion-fab-button ion-icon {
+  font-size: 24px; /* Adjust icon size */
+}
+
+/* Custom colors for each FAB button */
+ion-fab-button.color-primary {
+  --background: #ff9800;
+// position:fixed;
+// bottom:16px;
+// right:16px;
+// z-index:1000;
+}
+
+ion-fab-button.color-secondary {
+  --background: #4c8bf5; /* Secondary color */
+}
+
+ion-fab-button.color-danger {
+  --background: #f04141; /* Danger color */
+}
+
+/* Hover effect for FAB buttons */
+ion-fab-button:hover {
+  transform: scale(1.1); /* Scale up on hover */
+  transition: transform 0.2s ease-in-out; /* Smooth transition */
+}

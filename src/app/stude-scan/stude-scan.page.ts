@@ -58,8 +58,45 @@ student:any;
     // }
     }
 
-   
+    
   }
+  async presentViewModal() {
+    const modal = await this.modalController.create({
+      component: ViewModalComponent
+    });
+    return await modal.present();
+  }
+  //
+  // async presentConfirmationAlert() {
+  //   const alert = await this.alertController.create({
+  //     header: 'Confirmation',
+  //     message: 'Are you sure you want to SIGN OUT?',
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         role: 'cancel',
+  //         cssClass: 'my-custom-alert',
+  //         handler: () => {
+  //           console.log('Confirmation canceled');
+  //         }
+  //       },
+  //       {
+  //         text: 'Confirm',
+  //         handler: () => {
+  //           this.auth.signOut().then(() => {
+  //             this.navCtrl.navigateForward("/login");
+  //             this.presentToast('SIGNED OUT!', 'success');
+  //           }).catch((error) => {
+  //             console.error('Sign out error:', error);
+  //             this.presentToast('Error during sign out. Please try again.', 'danger');
+  //           });
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   await alert.present();
+  // }
+
   searchStudent() {
     if (this.email) {
       alert("I am here as " + this.email);
