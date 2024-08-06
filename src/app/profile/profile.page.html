@@ -7,28 +7,34 @@
           <div class="circle-2"></div>
           <ion-icon name="person-circle-outline" class="equal-size"></ion-icon>
         </div>
-        <div class="name">{{ currentUser.fullName }}</div>
-        <div class="job">{{ currentUser.position }}</div>
+       
         <div class="actions">
-          <button class="btn" routerLink="/lecture">ADD CLASSES</button>
-          <button class="btn" routerLink="/attendies">Track Attendance</button>
+          <ion-button class="btn" routerLink="/profile">
+            <ion-icon name="person" slot="start"></ion-icon>
+            View Profile
+          </ion-button>
+
+          <ion-button class="btn" routerLink="/attendance-records">
+            <ion-icon name="document-text" slot="start"></ion-icon>
+            Attendance Records
+          </ion-button>
+        
+          <ion-button class="btn" routerLink="/academic-calendar">
+            <ion-icon name="calendar" slot="start"></ion-icon>
+            Academic Calendar
+          </ion-button>
+          <ion-button class="btn" routerLink="/announcements">
+            <ion-icon name="megaphone" slot="start"></ion-icon>
+            Announcements
+          </ion-button>
+          <ion-button class="btn" routerLink="/stude-scan">
+            <ion-icon name="scan" slot="start"></ion-icon>
+            Scan QR Code
+          </ion-button>
         </div>
       </div>
 
-      <div class="stats">
-        <div class="box">
-          <span class="value">{{ studentCount }}</span>
-          <span class="parameter">Students</span>
-        </div>
-        <div class="box">
-          <span class="value">{{ moduleCount }}</span>
-          <span class="parameter">Modules</span>
-        </div>
-        <div class="box">
-          <span class="value">{{ totalAttendance.toFixed(2) }}%</span>
-          <span class="parameter">Attendance</span>
-        </div>
-      </div>
+
     </div>
   </div>
 </ion-content>
