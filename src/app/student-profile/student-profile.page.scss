@@ -1,0 +1,30 @@
+.custom-card {
+  --background: rgb(163, 77, 77); /* Maroon color for the card background */
+  color: white; /* White text color inside the card */
+}
+
+.custom-button {
+  --background: #ff9800; /* #ff9800 color for the button background */
+  color: white; /* White text color inside the button */
+}
+
+.custom-cancel-button {
+  --background: #ff0000; /* Red color for the cancel button background */
+  color: white; /* White text color inside the cancel button */
+}
+
+ion-item ion-icon {
+  margin-right: 8px; /* Space between the icon and the input field */
+  color: white; /* White color for the icons */
+}
+
+ion-card ion-item {
+  --background: transparent; /* Transparent background for ion-item inside the card */
+  --color: white; /* White text color for ion-item inside the card */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}

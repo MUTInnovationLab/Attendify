@@ -11,7 +11,7 @@ import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 })
 export class QrScanPage implements OnInit {
 
-  qrCodeDataUrl: string = '';
+  qrCodeDataUrl: string = 'CF100';
   qrCodeText: string = '';
   qrCodeSize: number = 200;
   scannedResult: any;
