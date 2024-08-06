@@ -35,5 +35,6 @@ import { AttendiesPage } from './attendies.page';
     AttendiesPageRoutingModule
   ],
   declarations: [AttendiesPage]
+  
 })
 export class AttendiesPageModule {}
