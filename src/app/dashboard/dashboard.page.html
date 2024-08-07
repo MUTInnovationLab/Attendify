@@ -35,7 +35,7 @@
       <ion-card-content>
         <ion-icon name="people-outline"></ion-icon>
         <h3>Department Admins</h3>
-        <p class="number">2</p>
+        <ion-card-subtitle class="number">{{ (deptAdmins$ | async)?.length }}</ion-card-subtitle>
       </ion-card-content>
     </div>
 
@@ -43,7 +43,7 @@
       <ion-card-content>
         <ion-icon name="analytics-outline"></ion-icon>
         <h3>Departments Analytics</h3>
-        <p class="number">8</p>
+        
       </ion-card-content>
     </div>
 
@@ -57,24 +57,23 @@
 
 
   <div id="admin-container">
-  <div>
-    <div class="admin-details" *ngFor="let i of [1, 2, 3]">
+    <div class="admin-details" *ngFor="let deptAdmin of (deptAdmins$ | async)">
       <ion-label>
-        <h3>Thandeka Nkosi</h3>
-        <p>thandeka&#64;gmail.com</p>
-        <p>ICT</p>
+        <h3>{{ deptAdmin.fullName }}</h3>
+        <p>{{ deptAdmin.email }}</p>
+        <p>{{ deptAdmin.department }}</p>
       </ion-label>
       <div>
-      <ion-note slot="end">12342</ion-note>
-      <div>
-      <ion-icon name="create-outline" slot="end"></ion-icon>
-      <ion-icon name="trash-outline" slot="end"></ion-icon>
-    
+        <ion-note slot="end">{{ deptAdmin.staffNumber }}</ion-note>
+
+        <ion-icon name="create-outline" slot="end" (click)="editDeptAdmin(deptAdmin)"></ion-icon>
+
+      
+        <ion-icon name="trash-outline" slot="end" (click)="deleteDeptAdmin(deptAdmin.id!)"></ion-icon>
+      </div>
     </div>
   </div>
-  </div>
-  </div>
-</div>
+  
 
 </ion-content>
 
@@ -128,20 +127,26 @@
 
 
 
-    <p class="input_wrapper">
-      <input type="email" name="deptAdmin_email" [(ngModel)]="deptAdminEmail" id="deptAdmin_email" required>
-      <label for="deptAdmin_email">Email</label>
-    </p>
-    <p class="input_wrapper">
-      <input type="text" name="deptAdmin_staffNumber" [(ngModel)]="deptAdminStaffNumber" id="deptAdmin_staffNumber" required>
-      <label for="deptAdmin_staffNumber">Staff Number</label>
-    </p>
-    <p class="input_wrapper">
+    <ion-item>
+      <label for="deptAdmin_email">Email Address</label>
+      <ion-label position="floating" slot="floating">Email Address</ion-label>
+      <ion-input type="email" name="deptAdmin_email" [(ngModel)]="deptAdminEmail" id="deptAdmin_email" required></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+    <label for="deptAdmin_staffNumber">Staff Number</label>
+    <ion-label position="floating" slot="floating">Staff Number</ion-label>
+    <ion-input type="text" name="deptAdmin_staffNumber" [(ngModel)]="deptAdminStaffNumber" id="deptAdmin_staffNumber" required></ion-input>  
+   </ion-item>
+
+
+    <ion-item>
       <label for="deptAdmin_department">Department</label>
       <select name="deptAdmin_department" [(ngModel)]="deptAdminDepartment" id="deptAdmin_department" required>
         <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
       </select>
-    </p>
+    </ion-item>
       
       <ion-button expand="block" (click)=" addDeptAdmin()">Submit</ion-button>
     </ion-content>

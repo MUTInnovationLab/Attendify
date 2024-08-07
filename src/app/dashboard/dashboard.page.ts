@@ -244,4 +244,10 @@ export class DashboardPage {
     });
     await alert.present();
   }
+  onEditIconClick() {
+    // Implement your edit logic here
+    console.log('Edit icon clicked');
+  }
+
+  
 }
