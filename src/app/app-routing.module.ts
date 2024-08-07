@@ -73,11 +73,6 @@ const routes: Routes = [
   }
 ];
 
-<<<<<<< HEAD
-];
-
-=======
->>>>>>> a198294eae8037c1ca2663e28cc095e577d2d5f9
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
