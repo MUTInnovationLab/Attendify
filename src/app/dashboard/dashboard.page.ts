@@ -1,18 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-dashboard',
-//   templateUrl: './dashboard.page.html',
-//   styleUrls: ['./dashboard.page.scss'],
-// })
-// export class DashboardPage implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
 
 
 import { Component, ViewChild } from '@angular/core';
@@ -22,6 +7,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 
 
 interface DeptAdmin {
@@ -68,11 +55,6 @@ export class DashboardPage {
     this.addAdminModal.dismiss();
   }
 
-
-
-
-  
-  
   deptAdmins$: Observable<DeptAdmin[]>;
   deptAdminFullName = '';
   deptAdminEmail = '';
@@ -104,7 +86,8 @@ export class DashboardPage {
     private alertController: AlertController,
     private firestore: AngularFirestore,
     private toastController: ToastController,
-    private authService: AuthService
+    private authService: AuthService,
+    private afAuth: AngularFireAuth
   ) {
     this.deptAdmins$ = this.firestore
       .collection<DeptAdmin>('registered staff', ref => ref.where('position', '==', 'dept-admin'))
@@ -128,7 +111,7 @@ export class DashboardPage {
       this.presentToast('You must be logged in to add a Dept-Admin.');
       return;
     }
-  
+
     if (this.deptAdminFullName && this.deptAdminEmail && this.deptAdminStaffNumber && this.deptAdminDepartment) {
       // Check if the email already exists
       const emailExists = await this.firestore
@@ -137,12 +120,12 @@ export class DashboardPage {
         .pipe(take(1))
         .toPromise()
         .then(deptAdmins => (deptAdmins ?? []).length > 0);
-  
+
       if (emailExists) {
         this.presentToast('A Dept-Admin with this email already exists.');
         return;
       }
-  
+
       const newDeptAdmin: DeptAdmin = {
         fullName: this.deptAdminFullName,
         email: this.deptAdminEmail,
@@ -150,15 +133,28 @@ export class DashboardPage {
         staffNumber: this.deptAdminStaffNumber,
         department: this.deptAdminDepartment,
       };
-      await this.firestore.collection('registered staff').add(newDeptAdmin);
-      this.resetForm();
-      this.showAddCard = false;
-      this.presentToast('Dept-Admin successfully added!');
+
+      try {
+        // Add Dept-Admin to Firestore
+        await this.firestore.collection('registered staff').add(newDeptAdmin);
+
+        // Create user in Firebase Authentication
+        await this.afAuth.createUserWithEmailAndPassword(this.deptAdminEmail, 'temporaryPassword123');
+
+        // Optionally, send a password reset email to let the admin set their password
+        await this.afAuth.sendPasswordResetEmail(this.deptAdminEmail);
+
+        this.resetForm();
+        this.showAddCard = false;
+        this.presentToast('Dept-Admin successfully added! A login email has been sent.');
+      } catch (error) {
+        console.error('Error adding Dept-Admin: ', error);
+        this.presentToast('Error adding Dept-Admin.');
+      }
     } else {
       this.presentToast('Please fill out all fields.');
     }
   }
-  
 
   editDeptAdmin(deptAdmin: DeptAdmin) {
     this.selectedDeptAdminId = deptAdmin.id!;

@@ -35,7 +35,7 @@
       <ion-card-content>
         <ion-icon name="people-outline"></ion-icon>
         <h3>Department Admins</h3>
-        <ion-card-subtitle class="number">{{ (deptAdmins$ | async)?.length }}</ion-card-subtitle>
+        <p class="number">{{ (deptAdmins$ | async)?.length }}</p>
       </ion-card-content>
     </div>
 
@@ -43,7 +43,7 @@
       <ion-card-content>
         <ion-icon name="analytics-outline"></ion-icon>
         <h3>Departments Analytics</h3>
-        
+        <p class="number">8</p>
       </ion-card-content>
     </div>
 
@@ -65,12 +65,12 @@
       </ion-label>
       <div>
         <ion-note slot="end">{{ deptAdmin.staffNumber }}</ion-note>
-
+<div>
         <ion-icon name="create-outline" slot="end" (click)="editDeptAdmin(deptAdmin)"></ion-icon>
 
       
         <ion-icon name="trash-outline" slot="end" (click)="deleteDeptAdmin(deptAdmin.id!)"></ion-icon>
-      </div>
+      </div> </div>
     </div>
   </div>
   

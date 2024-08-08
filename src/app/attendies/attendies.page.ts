@@ -23,14 +23,11 @@ export class AttendiesPage implements OnInit, OnDestroy {
 
   // Fetch all students and pending requests on component initialization
   ngOnInit() {
-<<<<<<< HEAD
     this.fetchAllStudents(this.moduleCode, this.moduleName); // Fetch all students from a specific module
     // this.fetchPendingRequests(this.moduleCode, this.moduleName); // Fetch requested invites
-=======
     this.fetchAllStudents(this.moduleCode, this.scanDate); // Fetch all students from a specific module and date
   
     this.fetchPendingRequests();
->>>>>>> 20ac43d813b20b246dd4b8c713b3e62a881d9486
   }
 
   // Fetch all attended students from a specific module and date
