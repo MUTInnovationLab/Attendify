@@ -1,13 +1,102 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>deptAn</ion-title>
+    <ion-title>Department Analytic</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">deptAn</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="custom-background">
+  <div class="text">
+    <ion-card class="department-card" routerLink="/department">
+      <ion-card-content>
+        <ion-icon name="business-outline" class="icon"></ion-icon>
+        <ion-card-title class="card-title">Department Analytics</ion-card-title>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-searchbar [(ngModel)]="searchStaffNumber" (ionInput)="searchLecturers()" placeholder="Search by Staff Number"></ion-searchbar>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card class="tablecard">
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Position</th>
+          <th>Staff Number</th>
+          <th>Department</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lecturer of lecturers" [class.editing]="lecturer.staffNumber === editingLecturerStaffNumber">
+          <td><input [(ngModel)]="lecturer.fullName" [readonly]="lecturer.staffNumber !== editingLecturerStaffNumber"></td>
+          <td><input [(ngModel)]="lecturer.email" [readonly]="lecturer.staffNumber !== editingLecturerStaffNumber"></td>
+          <td><input [(ngModel)]="lecturer.position" [readonly]="lecturer.staffNumber !== editingLecturerStaffNumber"></td>
+          <td><input [(ngModel)]="lecturer.staffNumber" [readonly]="lecturer.staffNumber !== editingLecturerStaffNumber"></td>
+          <td><input [(ngModel)]="lecturer.department" [readonly]="lecturer.staffNumber !== editingLecturerStaffNumber"></td>
+          <td>
+            <ion-button fill="clear" color="primary" *ngIf="lecturer.staffNumber !== editingLecturerStaffNumber" (click)="editLecturer(lecturer)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="success" *ngIf="lecturer.staffNumber === editingLecturerStaffNumber" (click)="updateLecturer(lecturer)">
+              <ion-icon name="save-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" (click)="deleteLecturer(lecturer.staffNumber)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="medium" *ngIf="lecturer.staffNumber === editingLecturerStaffNumber" (click)="cancelEdit()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="ion-text-center">
+      <ion-button fill="solid" class="view-student-button" (click)="showStudentTable = !showStudentTable">
+        <ion-icon name="people-outline"></ion-icon> View Students
+      </ion-button>
+    </div>
+  </ion-card>
+
+  <ion-card class="tablecard" *ngIf="showStudentTable">
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Student Number</th>
+          <th>Surname</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students" [class.editing]="student.studentNumber === editingStudentNumber">
+          <td><input [(ngModel)]="student.name" [readonly]="student.studentNumber !== editingStudentNumber"></td>
+          <td><input [(ngModel)]="student.email" [readonly]="student.studentNumber !== editingStudentNumber"></td>
+          <td><input [(ngModel)]="student.studentNumber" [readonly]="student.studentNumber !== editingStudentNumber"></td>
+          <td><input [(ngModel)]="student.surname" [readonly]="student.studentNumber !== editingStudentNumber"></td>
+          <td>
+            <ion-button fill="clear" color="primary" *ngIf="student.studentNumber !== editingStudentNumber" (click)="editStudent(student)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="success" *ngIf="student.studentNumber === editingStudentNumber" (click)="updateStudent(student)">
+              <ion-icon name="save-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" (click)="deleteStudent(student.studentNumber)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="medium" *ngIf="student.studentNumber === editingStudentNumber" (click)="cancelEdit()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-card>
 </ion-content>
