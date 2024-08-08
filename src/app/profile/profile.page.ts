@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ModalController } from '@ionic/angular';
+
 
 interface StudentData {
   email: string;
@@ -15,18 +17,27 @@ interface StudentData {
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  currentUser: any = {};
-  moduleCount: number = 0;
-  studentCount: number = 0;
-  totalAttendance: number = 0;
-
+  showUserInfo = false;
+  user = {
+    name: 'John Doe',
+    email: 'john.doe@example.com'
+  };
   constructor(
     private auth: AngularFireAuth,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private modalController: ModalController
   ) {}
+
+  toggleUserInfo() {
+    this.showUserInfo = !this.showUserInfo;
+  }
 
   ngOnInit() {
     // this.getCurrentUser();
+  }
+  viewCalendar() {
+    const url = 'assets/0206261057080 Thandeka Nkosi.pdf'; // path to your PDF file
+    window.open(url, '_blank');
   }
 
   // getCurrentUser() {

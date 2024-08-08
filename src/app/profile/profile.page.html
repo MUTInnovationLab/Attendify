@@ -1,40 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Student Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleUserInfo()">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <div class="frame">
-    <div class="center">
-      <div class="profile">
-        <div class="image">
-          <div class="circle-1"></div>
-          <div class="circle-2"></div>
-          <ion-icon name="person-circle-outline" class="equal-size"></ion-icon>
-        </div>
-       
-        <div class="actions">
-          <ion-button class="btn" routerLink="/profile">
-            <ion-icon name="person" slot="start"></ion-icon>
-            View Profile
-          </ion-button>
-
-          <ion-button class="btn" routerLink="/attendance-records">
-            <ion-icon name="document-text" slot="start"></ion-icon>
-            Attendance Records
-          </ion-button>
-        
-          <ion-button class="btn" routerLink="/academic-calendar">
-            <ion-icon name="calendar" slot="start"></ion-icon>
-            Academic Calendar
-          </ion-button>
-          <ion-button class="btn" routerLink="/announcements">
-            <ion-icon name="megaphone" slot="start"></ion-icon>
-            Announcements
-          </ion-button>
-          <ion-button class="btn" routerLink="/stude-scan">
-            <ion-icon name="scan" slot="start"></ion-icon>
-            Scan QR Code
-          </ion-button>
-        </div>
+    <ion-card *ngIf="showUserInfo" class="user-info-card">
+      <div class="user-info">
+        <h2>{{ user?.name }}</h2>
+        <p>{{ user?.email }}</p>
       </div>
+    </ion-card>
 
-
-    </div>
+    <ion-card *ngIf="!showUserInfo" class="actions-card">
+      <div class="actions">
+        <ion-button class="btn" routerLink="/attendance-records">
+          <ion-icon name="document-text" slot="start"></ion-icon>
+          <span>Attendance Records</span>
+        </ion-button>
+        <ion-button class="btn" (click)="viewCalendar()">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          <span>Academic Calendar</span>
+        </ion-button>
+        <ion-button class="btn" routerLink="/announcements">
+          <ion-icon name="megaphone" slot="start"></ion-icon>
+          <span>Announcements</span>
+        </ion-button>
+        <ion-button class="btn" routerLink="/stude-scan">
+          <ion-icon name="scan" slot="start"></ion-icon>
+          <span>Scan QR Code</span>
+        </ion-button>
+      </div>
+    </ion-card>
   </div>
 </ion-content>

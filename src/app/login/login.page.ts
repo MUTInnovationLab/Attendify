@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
   
       if (this.email === 'mutinnovationlab@gmail.com' && this.password === 'InnovationLab123') {
         loader.dismiss();
-        this.navController.navigateForward('/admin');
+        this.navController.navigateForward('/profile');
         return;
       }
   

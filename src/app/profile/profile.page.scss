@@ -1,96 +1,88 @@
-.frame {
+ion-content {
+	--background: rgb(248, 243, 215);
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 100%;
 	padding: 20px;
   }
   
-  .center {
+  ion-header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+  }
+  
+  .frame {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+  }
+  
+  .user-info-card, .actions-card {
+	width: 90%;
+	max-width: 400px;
+	background-color: rgba(255, 255, 255, 0.9);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	margin: 20px 0;
+  }
+  
+  .user-info {
 	text-align: center;
   }
   
-  .profile {
-	margin-bottom: 30px;
-  }
-  
-  .image {
-	position: relative;
-	margin: 0 auto 20px;
-  }
-  
-  .circle-1,
-  .circle-2 {
-	position: absolute;
-	width: 120px;
-	height: 120px;
-	border-radius: 50%;
-  }
-  
-  .circle-1 {
-	background: #f1f1f1;
-	top: -10px;
-	left: -10px;
-  }
-  
-  .circle-2 {
-	background: #e0e0e0;
-	top: 10px;
-	left: 10px;
-  }
-  
-  .equal-size {
-	font-size: 100px;
-	color: #888;
-  }
-  
-  .name {
+  .user-info h2 {
+	margin: 0;
 	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 5px;
   }
   
-  .job {
-	font-size: 18px;
-	color: #666;
-	margin-bottom: 20px;
+  .user-info p {
+	margin: 0;
+	font-size: 16px;
+	color: grey;
   }
   
   .actions {
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 10px;
+	flex-direction: column;
+	gap: 20px; /* Increase the gap between buttons */
+	width: 100%;
   }
   
   .btn {
-	--padding-start: 10px;
-	--padding-end: 10px;
-	--border-radius: 10px;
-  }
-  
-  .stats {
-	display: flex;
-	justify-content: center;
-	gap: 20px;
-  }
-  
-  .box {
-	background: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .value {
-	display: block;
-	font-size: 24px;
+	--background: #fcbd60;
+	--background-activated: #ffd700;
+	--background-focused: #ffec8b;
+	--background-hover: #ffec8b;
+	color: black; /* Text color for better contrast */
 	font-weight: bold;
-	margin-bottom: 5px;
+	text-align: left;
+	justify-content: flex-start;
+	height: 60px; /* Increase the height of the buttons */
+	font-size: 18px; /* Increase font size for the button text */
   }
   
-  .parameter {
-	font-size: 18px;
-	color: #666;
+  .btn ion-icon {
+	display: inline-block;
   }
   
+  .btn span {
+	display: inline-block;
+  }
+  
+  .btn:hover span {
+	display: none; /* Hide text on hover */
+  }
+  
+  .btn:hover ion-icon {
+	margin: 0 auto; /* Center the icon */
+	display: block;
+	width: 100%;
+	text-align: center;
+  }
