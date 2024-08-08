@@ -115,15 +115,23 @@ ion-content {
 
 
   //TABLE STYLE
-  table {
+
+  .custom-card-width {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: auto;
+    max-width: 1200px; /* Adjust this value as needed */
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+
+ .tablecard table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
+.tablecard th, .tablecard td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
 }
 
 th {
@@ -311,6 +319,52 @@ table tbody tr.selected {
     margin-bottom: 15px;
   }
   
+ 
+
   ion-button {
     --border-radius: 10px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --color: #ffffff;
+    --background: #3880ff; 
+    --background-activated: #3171e0; 
+    --background-focused: #3171e0; 
+    --background-hover: #2d68c4; 
+    --box-shadow: none; 
+    --border: none; 
+}
+
+/* Edit button */
+ion-button.edit {
+    --background: #2c9c7d; /* Green background for edit */
+    --background-activated: #24856c; /* Darker green when activated */
+    --background-focused: #24856c; /* Darker green when focused */
+    --background-hover: #1f7a61; /* Darker green when hovered */
+}
+
+/* Delete button */
+ion-button.delete {
+    --background: #d9534f; /* Red background for delete */
+    --background-activated: #c9302c; /* Darker red when activated */
+    --background-focused: #c9302c; /* Darker red when focused */
+    --background-hover: #b52a1b; /* Darker red when hovered */
+}
+
+/* Optional: Style button text */
+ion-button .button-inner {
+    font-size: 14px; /* Font size for button text */
+    font-weight: bold; /* Make text bold */
+}
+@media (max-width: 768px) {
+  .action-buttons {
+      flex-direction: column; /* Stack buttons vertically on smaller screens */
   }
+
+  ion-button {
+      --padding-start: 8px; 
+      --padding-end: 8px;
+  }
+
+
+
+}

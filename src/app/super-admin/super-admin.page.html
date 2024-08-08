@@ -7,35 +7,49 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card class="lecturer-card" routerLink="/lecturers">
+    <ion-card class="dept-admin-card" routerLink="/lecturers">
       <ion-card-content>
         <ion-icon name="people-outline" class="icon"></ion-icon>
-        <ion-card-title class="card-title">Lecturers</ion-card-title>
-        <ion-card-subtitle class="number">{{ lecturers.length }}</ion-card-subtitle>
+        <ion-card-title class="card-title">Dept-Admin</ion-card-title>
+        <ion-card-subtitle class="number">{{ (deptAdmins$ | async)?.length }}</ion-card-subtitle>
       </ion-card-content>
     </ion-card>
   </div>
 
+  <!-- Form Section -->
   <section id="contact" *ngIf="showAddCard || showEditCard">
-    <div class="sectionheader"><h1>{{ showEditCard ? 'Edit Lecturer' : 'Add Lecturer' }}</h1></div>
+    <div class="sectionheader">
+      <h1>{{ showEditCard ? 'Edit Dept-Admin' : 'Add Dept-Admin' }}</h1>
+    </div>
     <article>
-      <form (submit)="showEditCard ? updateLecturer() : addLecturer()" class="contactform">
-        <p class="input_wrapper"><input type="text" name="lecturer_fullName" [(ngModel)]="lecturerFullName" id="lecturer_fullName" required><label for="lecturer_fullName">Full Name</label></p>
-        <p class="input_wrapper"><input type="email" name="lecturer_email" [(ngModel)]="lecturerEmail" id="lecturer_email" required><label for="lecturer_email">Email</label></p>
-        <p class="input_wrapper"><input type="text" name="lecturer_position" [(ngModel)]="lecturerPosition" id="lecturer_position" required><label for="lecturer_position">Position</label></p>
-        <p class="input_wrapper"><input type="text" name="lecturer_staffNumber" [(ngModel)]="lecturerStaffNumber" id="lecturer_staffNumber" required><label for="lecturer_staffNumber">Staff Number</label></p>
+      <form (ngSubmit)="onSubmit()" class="contactform">
         <p class="input_wrapper">
-          <label for="lecturer_department">Department</label>
-          <select name="lecturer_department" [(ngModel)]="lecturerDepartment" id="lecturer_department" required>
+          <input type="text" name="deptAdmin_fullName" [(ngModel)]="deptAdminFullName" id="deptAdmin_fullName" required>
+          <label for="deptAdmin_fullName">Full Name</label>
+        </p>
+        <p class="input_wrapper">
+          <input type="email" name="deptAdmin_email" [(ngModel)]="deptAdminEmail" id="deptAdmin_email" required>
+          <label for="deptAdmin_email">Email</label>
+        </p>
+        <p class="input_wrapper">
+          <input type="text" name="deptAdmin_staffNumber" [(ngModel)]="deptAdminStaffNumber" id="deptAdmin_staffNumber" required>
+          <label for="deptAdmin_staffNumber">Staff Number</label>
+        </p>
+        <p class="input_wrapper">
+          <label for="deptAdmin_department">Department</label>
+          <select name="deptAdmin_department" [(ngModel)]="deptAdminDepartment" id="deptAdmin_department" required>
             <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
           </select>
         </p>
-        <p class="submit_wrapper"><input type="submit" value="SUBMIT"></p>
+        <p class="submit_wrapper">
+          <input type="submit" value="SUBMIT">
+        </p>
       </form>
     </article>
   </section>
 
-  <ion-card class="tablecard">
+  <!-- Table Section -->
+  <ion-card class="tablecard custom-card-width" *ngIf="!showAddCard && !showEditCard">
     <table>
       <thead>
         <tr>
@@ -48,15 +62,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let lecturer of lecturers">
-          <td>{{ lecturer.fullName }}</td>
-          <td>{{ lecturer.email }}</td>
-          <td>{{ lecturer.position }}</td>
-          <td>{{ lecturer.staffNumber }}</td>
-          <td>{{ lecturer.department }}</td>
+        <tr *ngFor="let deptAdmin of (deptAdmins$ | async)">
+          <td>{{ deptAdmin.fullName }}</td>
+          <td>{{ deptAdmin.email }}</td>
+          <td>{{ deptAdmin.position }}</td>
+          <td>{{ deptAdmin.staffNumber }}</td>
+          <td>{{ deptAdmin.department }}</td>
           <td>
-            <ion-button fill="clear" color="primary" (click)="editLecturer(lecturer)">Edit</ion-button>
-            <ion-button fill="clear" color="danger" (click)="deleteLecturer(lecturer.id)">Delete</ion-button>
+            <ion-button fill="clear" color="primary" (click)="editDeptAdmin(deptAdmin)">Edit</ion-button>
+            <ion-button fill="clear" color="danger" (click)="deleteDeptAdmin(deptAdmin.id!)">Delete</ion-button>
           </td>
         </tr>
       </tbody>
@@ -64,7 +78,7 @@
 
     <div class="ion-text-center">
       <ion-button fill="clear" color="warning" (click)="presentConfirmationAlert()">Logout</ion-button>
-      <ion-button fill="solid" class="addbutton" (click)="showAddCard = true; showEditCard = false;">Add Lecturer</ion-button>
+      <ion-button fill="solid" class="addbutton" (click)="showAddCard = true; showEditCard = false;">Add Dept-Admin</ion-button>
     </div>
   </ion-card>
 </ion-content>

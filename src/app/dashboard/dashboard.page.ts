@@ -1,9 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+// import { Component, OnInit } from '@angular/core';
+
+// @Component({
+//   selector: 'app-dashboard',
+//   templateUrl: './dashboard.page.html',
+//   styleUrls: ['./dashboard.page.scss'],
+// })
+// export class DashboardPage implements OnInit {
+
+//   constructor() { }
+
+//   ngOnInit() {
+//   }
+
+// }
+
+
+import { Component, ViewChild } from '@angular/core';
+import { IonModal } from '@ionic/angular';
 import { AlertController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+
 
 interface DeptAdmin {
   id?: string;
@@ -14,12 +33,46 @@ interface DeptAdmin {
   department: string;
 }
 
+
+
+
 @Component({
-  selector: 'app-super-admin',
-  templateUrl: './super-admin.page.html',
-  styleUrls: ['./super-admin.page.scss'],
+  selector: 'app-dashboard',
+  templateUrl: 'dashboard.page.html',
+  styleUrls: ['dashboard.page.scss'],
 })
-export class SuperAdminPage implements OnInit {
+export class DashboardPage {
+
+  
+  
+
+  @ViewChild('addAdminModal') addAdminModal!: IonModal;
+
+  newAdmin = {
+    fullName: '',
+    email: '',
+    staffNumber: '',
+    department: ''
+  };
+
+  admins = [
+    { name: 'Thandeka Nkosi', email: 'thandeka@gmail.com', department: 'ICT', id: '12342' },
+    // ... other admins ...
+  ];
+
+  openAddAdminModal() {
+    this.addAdminModal.present();
+  }
+
+  dismissModal() {
+    this.addAdminModal.dismiss();
+  }
+
+
+
+
+  
+  
   deptAdmins$: Observable<DeptAdmin[]>;
   deptAdminFullName = '';
   deptAdminEmail = '';
@@ -191,4 +244,10 @@ export class SuperAdminPage implements OnInit {
     });
     await alert.present();
   }
+  onEditIconClick() {
+    // Implement your edit logic here
+    console.log('Edit icon clicked');
+  }
+
+  
 }

@@ -19,6 +19,9 @@ interface Student {
   name: string;
   surname: string;
   studentNumber: string;
+  moduleCode: string;
+  moduleName: string;
+  status: string;
 }
 
 @Component({
@@ -202,4 +205,5 @@ export class ViewModalComponent implements OnInit {
       console.error('Error dismissing modal:', err);
     });
   }
+  
 }

@@ -46,7 +46,8 @@ const routes: Routes = [
   {
     path: 'attendies',
     loadChildren: () => import('./attendies/attendies.module').then( m => m.AttendiesPageModule)
-  },  {
+  },
+  {
     path: 'super-admin',
     loadChildren: () => import('./super-admin/super-admin.module').then( m => m.SuperAdminPageModule)
   },
@@ -69,7 +70,10 @@ const routes: Routes = [
   {
     path: 'student-profile',
     loadChildren: () => import('./student-profile/student-profile.module').then( m => m.StudentProfilePageModule)
-  },
+  },  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  }
 
 ];
 
